@@ -1,0 +1,30 @@
+{
+  "name": "KeanWise Scheduler",
+  "version": "2.0",
+  "description": "KeanWise Scheduler",
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://webreg.kean.edu/*", "file://*" ],
+      "js": ["js/content.js"]
+    }
+  ],
+  "page_action" :
+  {
+    "default_icon" : "icon-19.png",
+    "default_title" : "There's a 'kean' in this URL!",
+    "default_popup": "timetable.html"
+  },
+  "permissions" : [
+    "activeTab", "declarativeContent"
+  ],
+
+  "icons" : {
+    "48" : "icon-48.png",
+    "128" : "icon-128.png"
+  },
+  "manifest_version": 2
+}
