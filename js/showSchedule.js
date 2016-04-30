@@ -169,11 +169,18 @@ function drawSchedule() {
                         var offset = -5;
                     }
                     for (var d=0; d<day.length; d++){
+
                         //top
                         top[d] = document.getElementById((h1 + offset).toString() + ",1").offsetTop + ((m1 / 60) * document.getElementById((h1 + offset).toString() + ",1").offsetHeight);
                         //alert(top[t]);
 
-                        nameTop[d] = (h1 + offset);
+                        if (m1 < 30){
+                            nameTop[d] = (h1 + offset);
+                        }
+                        else if (m1 >= 30){
+                            nameTop[d] = (h1 + offset + 1);
+                        }
+
                     }//finish getting top
 
 
@@ -195,7 +202,7 @@ function drawSchedule() {
 
                     for (var n=0; n<nameLeft.length; n++){
                         ID = nameTop[n] + "," + nameLeft[n];
-                        document.getElementById(ID).innerHTML = classNameArray[i + preTermNumSum].split("*")[0] + "\n" + classNameArray[i + preTermNumSum].split("*")[1];
+                        document.getElementById(ID).innerHTML = classNameArray[i + preTermNumSum].split("*")[0] + "<br/>" + classNameArray[i + preTermNumSum].split("*")[1];
                     }
 
 
@@ -221,14 +228,14 @@ function drawSchedule() {
                     nameTop = [];
                     nameLeft = [];
 
+                    tempColor++;
+
+                    if (tempColor == 10) {
+                        tempColor = 0;
+                    }
 
                 }//finish drawing
 
-                tempColor++;
-
-                if (tempColor == 10) {
-                    tempColor = 0;
-                }
 
             }//end one class
 
