@@ -19,7 +19,7 @@
     "default_popup": "timetable.html"
   },
   "permissions" : [
-    "activeTab", "declarativeContent"
+    "activeTab", "declarativeContent", "downloads"
   ],
 
   "icons" : {

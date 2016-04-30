@@ -6,13 +6,24 @@
 
 var drawing = document.getElementById("canvas");
 var context = drawing.getContext("2d");
-var color = new Array("rgba(0, 0, 255, 0.5)", "rgba(0, 255, 0, 0.5)", "rgba(255, 0, 0, 0.5)", "rgba(255, 185, 15, 0.5)", "rgba(255, 106, 106, 0.5)", "rgba(139, 101, 8, 0.5)", "rgba(255, 255, 0, 0.5)", "rgba(0, 255, 255, 0.5)", "rgba(255, 0, 255, 0.5)", "rgba(0, 0, 0, 0.5)");
+var color = new Array("rgba(0, 0, 255, 0.4)", "rgba(0, 255, 0, 0.5)", "rgba(255, 0, 0, 0.5)", "rgba(255, 185, 15, 0.5)", "rgba(255, 106, 106, 0.5)", "rgba(139, 101, 8, 0.5)", "rgba(255, 255, 0, 0.5)", "rgba(0, 255, 255, 0.5)", "rgba(255, 0, 255, 0.5)", "rgba(10, 10, 10, 0.3)");
 var tempColor = 0;
 
 function drawSchedule() {
 
     if (drawing.getContext) {
+
+        //clear the canvas
         context.clearRect(0, 0, 400, 850);
+
+        //clear the table
+        for (var i = 1; i < 17; i++){
+            for (var j = 1; j < 6; j++){
+                document.getElementById(i + "," + j).innerHTML = "";
+            }
+        }
+
+
 
         //context.fillStyle = "#EEEEFF";
         //context.fillRect(0, 0, 200, 200);
@@ -45,6 +56,14 @@ function drawSchedule() {
         var timeArray = [];
 
 
+        var preTermNumSum = 0;
+        var preTemp = selected;
+        while (preTemp - 1 >= 0){
+            preTermNumSum += termNumArray[preTemp - 1];
+            preTemp--;
+        }
+
+
         for (var i = 0; i < termNumArray[selected]; i++) { // class 5 (from 0 ~ 4) or 2 (from 0 ~ 1)
             //alert(termNumArray[selected]);
             timeIndex = 0;
@@ -59,20 +78,20 @@ function drawSchedule() {
                 //timeArray = classTimeArray.splice(0,5);
             }
 
-            for (var t = 0; t < timeArray[i].length; t++) { //one class
+            for (var t = 0; t < timeArray[i + preTermNumSum].length; t++) { //one class
                 //alert(timeArray[1].length);
-                //alert(timeArray[i][t].substring(0, 1));
+                //alert(timeArray[i + preTermNumSum][t].substring(0, 1));
 
-                if (isCharacter(timeArray[i][t].substring(0, 2))) {
-                    day[dayIndex] = timeArray[i][t];
+                if (isCharacter(timeArray[i + preTermNumSum][t].substring(0, 2))) {
+                    day[dayIndex] = timeArray[i + preTermNumSum][t];
                     //alert(day[dayIndex]);
                     dayIndex++;
                 }
-                else if (isNumber(timeArray[i][t].substring(0, 2))) {
+                else if (isNumber(timeArray[i + preTermNumSum][t].substring(0, 2))) {
 
-                    time[timeIndex] = timeArray[i][t];
+                    time[timeIndex] = timeArray[i + preTermNumSum][t];
                     //alert(time[timeIndex]);
-                    //alert(timeArray[i][t].substring(0, 1));
+                    //alert(timeArray[i + preTermNumSum][t].substring(0, 1));
                     //alert(timeArray[1][3]);
                     timeIndex++;
 
@@ -138,7 +157,7 @@ function drawSchedule() {
 
 
                         //Let PM +12
-                        if (time[t].substring(5) == "PM") {
+                        if (time[t].substring(5) == "PM" && time[t].substring(0, 2) != "12") {
                             if (t == 0) {
 
                                 h1 += 12;
@@ -172,9 +191,11 @@ function drawSchedule() {
                     draw(left, top, width, height);
 
 
+
+
                     for (var n=0; n<nameLeft.length; n++){
                         ID = nameTop[n] + "," + nameLeft[n];
-                        document.getElementById(ID).innerHTML = classNameArray[n].split("*")[0] + "\n" + classNameArray[n].split("*")[1];
+                        document.getElementById(ID).innerHTML = classNameArray[i + preTermNumSum].split("*")[0] + "\n" + classNameArray[i + preTermNumSum].split("*")[1];
                     }
 
 

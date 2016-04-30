@@ -19,6 +19,7 @@
 
         #table {
             width: 400px;
+            z-index: 0;
         }
 
         #canvas {
@@ -99,19 +100,19 @@
 
 <body>
 
-<label type="hidden" id="selectChanged" value=" "></label>
+<!-- <label type="hidden" id="selectChanged" value=" "></label> -->
 
 
+<script type="text/javascript" src="html2canvas.js"></script>
+<script src="canvas2image.js"></script>
 
 
 <div id='selectDIV'>
-    <select id="edu" name="edu" > <!--setSelectValue(this.selectedIndex);-->
+    <select id="edu" name="edu"> <!--setSelectValue(this.selectedIndex);-->
         <option value="-1">Please choose a term...</option>
     </select>
-    <button id="print" onClick="print()">Print My Schedule</button>
+    <button id="save">Save My Schedule as PNG</button>
 </div>
-
-<script src="js/CreateSelectBox.js"></script>
 
 
 <!--<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
@@ -119,157 +120,172 @@
 <script type="text/javascript" src="js/select.js"></script>
 -->
 
+
 <div id="commentsDIV">
     <br/>
-    <label id="comments">Contradictions: None</label>
+    <label id="comments">Contradictions: </label>
     <br/>
 </div>
 
-<div id = "visualization">
 <canvas id="canvas" width="490" height="850"></canvas>
 
-<table id="table" width="490" height="850" cellspacing="0">
-    <tr>
-        <th width="80"></th>
-        <th width="80">Mon.</th>
-        <th width="80">Tue.</th>
-        <th width="80">Wed.</th>
-        <th width="80">Thur.</th>
-        <th width="80">Fri.</th>
-    </tr>
-    <tr>
-        <th>6: 00</th>
-        <td id="1,1"></td>
-        <td id="1,2"></td>
-        <td id="1,3"></td>
-        <td id="1,4"></td>
-        <td id="1,5"></td>
-    </tr>
-    <tr>
-        <th>7: 00</th>
-        <td id="2,1"></td>
-        <td id="2,2"></td>
-        <td id="2,3"></td>
-        <td id="2,4"></td>
-        <td id="2,5"></td>
-    </tr>
-    <tr>
-        <th>8: 00</th>
-        <td id="3,1"></td>
-        <td id="3,2"></td>
-        <td id="3,3"></td>
-        <td id="3,4"></td>
-        <td id="3,5"></td>
-    </tr>
-    <tr>
-        <th>9: 00</th>
-        <td id="4,1"></td>
-        <td id="4,2"></td>
-        <td id="4,3"></td>
-        <td id="4,4"></td>
-        <td id="4,5"></td>
-    </tr>
-    <tr>
-        <th>10: 00</th>
-        <td id="5,1"></td>
-        <td id="5,2"></td>
-        <td id="5,3"></td>
-        <td id="5,4"></td>
-        <td id="5,5"></td>
-    </tr>
-    <tr>
-        <th>11: 00</th>
-        <td id="6,1"></td>
-        <td id="6,2"></td>
-        <td id="6,3"></td>
-        <td id="6,4"></td>
-        <td id="6,5"></td>
-    </tr>
-    <tr>
-        <th>12: 00</th>
-        <td id="7,1"></td>
-        <td id="7,2"></td>
-        <td id="7,3"></td>
-        <td id="7,4"></td>
-        <td id="7,5"></td>
-    </tr>
-    <tr>
-        <th>13: 00</th>
-        <td id="8,1"></td>
-        <td id="8,2"></td>
-        <td id="8,3"></td>
-        <td id="8,4"></td>
-        <td id="8,5"></td>
-    </tr>
-    <tr>
-        <th>14: 00</th>
-        <td id="9,1"></td>
-        <td id="9,2"></td>
-        <td id="9,3"></td>
-        <td id="9,4"></td>
-        <td id="9,5"></td>
-    </tr>
-    <tr>
-        <th>15: 00</th>
-        <td id="10,1"></td>
-        <td id="10,2"></td>
-        <td id="10,3"></td>
-        <td id="10,4"></td>
-        <td id="10,5"></td>
-    </tr>
-    <tr>
-        <th>16: 00</th>
-        <td id="11,1"></td>
-        <td id="11,2"></td>
-        <td id="11,3"></td>
-        <td id="11,4"></td>
-        <td id="11,5"></td>
-    </tr>
-    <tr>
-        <th>17: 00</th>
-        <td id="12,1"></td>
-        <td id="12,2"></td>
-        <td id="12,3"></td>
-        <td id="12,4"></td>
-        <td id="12,5"></td>
-    </tr>
-    <tr>
-        <th>18: 00</th>
-        <td id="13,1"></td>
-        <td id="13,2"></td>
-        <td id="13,3"></td>
-        <td id="13,4"></td>
-        <td id="13,5"></td>
-    </tr>
-    <tr>
-        <th>19: 00</th>
-        <td id="14,1"></td>
-        <td id="14,2"></td>
-        <td id="14,3"></td>
-        <td id="14,4"></td>
-        <td id="14,5"></td>
-    </tr>
-    <tr>
-        <th>20: 00</th>
-        <td id="15,1"></td>
-        <td id="15,2"></td>
-        <td id="15,3"></td>
-        <td id="15,4"></td>
-        <td id="15,5"></td>
-    </tr>
-    <tr>
-        <th>21: 00</th>
-        <td id="16,1"></td>
-        <td id="16,2"></td>
-        <td id="16,3"></td>
-        <td id="16,4"></td>
-        <td id="16,5"></td>
-    </tr>
-</table>
+<div id="visualization">
+    
+
+    <table id="table" width="490" height="850" cellspacing="0">
+        <tr>
+            <th width="80"></th>
+            <th width="80">Mon.</th>
+            <th width="80">Tue.</th>
+            <th width="80">Wed.</th>
+            <th width="80">Thur.</th>
+            <th width="80">Fri.</th>
+        </tr>
+        <tr>
+            <th>6: 00</th>
+            <td id="1,1"></td>
+            <td id="1,2"></td>
+            <td id="1,3"></td>
+            <td id="1,4"></td>
+            <td id="1,5"></td>
+        </tr>
+        <tr>
+            <th>7: 00</th>
+            <td id="2,1"></td>
+            <td id="2,2"></td>
+            <td id="2,3"></td>
+            <td id="2,4"></td>
+            <td id="2,5"></td>
+        </tr>
+        <tr>
+            <th>8: 00</th>
+            <td id="3,1"></td>
+            <td id="3,2"></td>
+            <td id="3,3"></td>
+            <td id="3,4"></td>
+            <td id="3,5"></td>
+        </tr>
+        <tr>
+            <th>9: 00</th>
+            <td id="4,1"></td>
+            <td id="4,2"></td>
+            <td id="4,3"></td>
+            <td id="4,4"></td>
+            <td id="4,5"></td>
+        </tr>
+        <tr>
+            <th>10: 00</th>
+            <td id="5,1"></td>
+            <td id="5,2"></td>
+            <td id="5,3"></td>
+            <td id="5,4"></td>
+            <td id="5,5"></td>
+        </tr>
+        <tr>
+            <th>11: 00</th>
+            <td id="6,1"></td>
+            <td id="6,2"></td>
+            <td id="6,3"></td>
+            <td id="6,4"></td>
+            <td id="6,5"></td>
+        </tr>
+        <tr>
+            <th>12: 00</th>
+            <td id="7,1"></td>
+            <td id="7,2"></td>
+            <td id="7,3"></td>
+            <td id="7,4"></td>
+            <td id="7,5"></td>
+        </tr>
+        <tr>
+            <th>13: 00</th>
+            <td id="8,1"></td>
+            <td id="8,2"></td>
+            <td id="8,3"></td>
+            <td id="8,4"></td>
+            <td id="8,5"></td>
+        </tr>
+        <tr>
+            <th>14: 00</th>
+            <td id="9,1"></td>
+            <td id="9,2"></td>
+            <td id="9,3"></td>
+            <td id="9,4"></td>
+            <td id="9,5"></td>
+        </tr>
+        <tr>
+            <th>15: 00</th>
+            <td id="10,1"></td>
+            <td id="10,2"></td>
+            <td id="10,3"></td>
+            <td id="10,4"></td>
+            <td id="10,5"></td>
+        </tr>
+        <tr>
+            <th>16: 00</th>
+            <td id="11,1"></td>
+            <td id="11,2"></td>
+            <td id="11,3"></td>
+            <td id="11,4"></td>
+            <td id="11,5"></td>
+        </tr>
+        <tr>
+            <th>17: 00</th>
+            <td id="12,1"></td>
+            <td id="12,2"></td>
+            <td id="12,3"></td>
+            <td id="12,4"></td>
+            <td id="12,5"></td>
+        </tr>
+        <tr>
+            <th>18: 00</th>
+            <td id="13,1"></td>
+            <td id="13,2"></td>
+            <td id="13,3"></td>
+            <td id="13,4"></td>
+            <td id="13,5"></td>
+        </tr>
+        <tr>
+            <th>19: 00</th>
+            <td id="14,1"></td>
+            <td id="14,2"></td>
+            <td id="14,3"></td>
+            <td id="14,4"></td>
+            <td id="14,5"></td>
+        </tr>
+        <tr>
+            <th>20: 00</th>
+            <td id="15,1"></td>
+            <td id="15,2"></td>
+            <td id="15,3"></td>
+            <td id="15,4"></td>
+            <td id="15,5"></td>
+        </tr>
+        <tr>
+            <th>21: 00</th>
+            <td id="16,1"></td>
+            <td id="16,2"></td>
+            <td id="16,3"></td>
+            <td id="16,4"></td>
+            <td id="16,5"></td>
+        </tr>
+    </table>
 
 </div>
 
+
+
+<script src="js/createSelectBox.js"></script>
+
+
 <script src="js/showSchedule.js"></script>
+
+
+<!--<canvas id="cvs" width="490" height="850"></canvas>-->
+
+
+<!--<script src="js/saveAsPNG.js"></script>-->
+
 
 </body>
 </html>

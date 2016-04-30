@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Using an existing canvas to draw on</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        button {
+            clear: both;
+            display: block;
+        }
+        #visualization {
+            background: rgba(100, 255, 255, 0.5);
+            padding: 50px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript" src="html2canvas.js"></script>
+<script src="canvas2image.js"></script>
+
+
+
+
+<div><h1>HTML content to render:</h1>
+
+
+    <div id="visualization">Render the content in this element <strong>only</strong> onto the existing canvas element
+    
+    <table width="200" border="2">
+  <tr>
+    <td>dddd</td>
+    <td>ddd</td>
+    <td>ddd</td>
+    <td>ddd</td>
+  </tr>
+  <tr>
+    <td>dd</td>
+    <td>d</td>
+    <td>d</td>
+    <td>ddd</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+    
+    
+    
+    </div>
+
+
+
+</div>
+<h1>Existing canvas:</h1>
+
+
+
+
+<canvas id="canvas" width="500" height="200" >
+<table width="200" border="1">
+  <tr>
+    <td>aaaaa</td>
+  </tr>
+</table>
+
+</canvas>
+
+<button id="save">Run html2canvas and canvas2image</button>
+
+
+
+
+<script type="text/javascript">
+
+
+    var canvas = document.querySelector("#canvas");
+
+    document.querySelector("#save").addEventListener("click", function() {
+        html2canvas(document.querySelector("#visualization"), {canvas: canvas}).then(function(canvas) {
+            console.log('Drew on the existing canvas');
+			
+            Canvas2Image.saveAsImage(canvas, 300, 200, "png");
+        });
+    }, false);
+
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

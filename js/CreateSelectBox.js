@@ -89,6 +89,12 @@ document.getElementById("edu").onchange = function(){
 
 
 
+
+
+
+
+
+
 /*
 document.getElementById("edu").addEventListener('change',function(){
 
