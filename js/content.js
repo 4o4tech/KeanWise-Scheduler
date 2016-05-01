@@ -4,9 +4,12 @@
 
 //alert("content_scripts is running");
 
-//alert(document.getElementById('SEC_TERM_8').innerHTML);
+//funcion for deleting spaces both on the left side and right side
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}
 
-//alert(document.title);
+//get data from the webpage
 if (document.title == "Register and Drop Sections") {
     //alert("sss");
     var totalNum = 0;
@@ -84,12 +87,12 @@ if (document.title == "Register and Drop Sections") {
                 classTimeArray[num].splice(i, 1); //delete useless string
                 i--;
             }
-            else{
+            else {
                 //if is useful, reformat it
                 classTimeArray[num][i] = classTimeArray[num][i].replace(/,/, " ");
                 classTimeArray[num][i] = trim(classTimeArray[num][i]);
             }
-            console.log("classTimeArray[" + num + "]["+i+"] = " + classTimeArray[num][i]);
+            console.log("classTimeArray[" + num + "][" + i + "] = " + classTimeArray[num][i]);
 
         }
     }
@@ -97,27 +100,16 @@ if (document.title == "Register and Drop Sections") {
     for (var i = 0; i < classNameArray.length; i++) {
         //console.log("classNameArray[" + i + "] = " + classNameArray[i]);
     }
-    /** one-time connection
-     chrome.runtime.sendMessage({sendclassNameArray: classNameArray}, function(response) {});
-     chrome.runtime.sendMessage({sendclassTimeArray: classTimeArray}, function(response) {});
-     **/
-
-
-
-        // var port = chrome.runtime.connect({name: "termName"});
-        // port.postMessage({joke: "termName"}, {content: termNameArray.toString()});
-        // console.log("getValues - termName, termNameArray");
-
-
         // one-time connection
     chrome.runtime.sendMessage({
         sendtermNameArray: termNameArray,
-        sendtermNumArray:termNumArray,
+        sendtermNumArray: termNumArray,
         sendclassNameArray: classNameArray,
-        sendclassTimeArray: classTimeArray}, function (response) {
+        sendclassTimeArray: classTimeArray
+    }, function (response) {
         //console.log(response.farewell);
     });
-    //chrome.runtime.sendMessage({sendtermNumArray: termNumArray}, function (response) {});
+
 
 
     /* long-time connection
@@ -154,11 +146,6 @@ if (document.title == "Register and Drop Sections") {
 
 }//end if (document.title == "Register and Drop Sections")
 
-function trim(str){ //删除左右两端的空格
-    return str.replace(/(^\s*)|(\s*$)/g, "");
-}
-
-
 
 
 
@@ -167,10 +154,10 @@ function trim(str){ //删除左右两端的空格
 
 //document.getElementsByClassName("shortButton").
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var link = document.getElementByName('SUBMIT2');
     // onClick's logic below:
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function () {
         this.form.submit();
     });
 });

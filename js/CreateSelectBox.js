@@ -4,35 +4,7 @@
 
 //window.open ("http://window.html","newwindow","height=100,width=400,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no");
 
-//alert("hhh");
-
-//alert("comm: " + document.getElementById('comments').innerHTML);
-
-
-//chrome.tabs.getElementById()
-/*
- var termNum;
- var term;
- var termID;
- termNum = 1;
- term = "SEC_TERM_";
- termID = term + termNum;
- while(document.getElementById(term).innerHTML.indexOf("Wenzhou") != -1){
-
- alert(termID + ": exist");
-
- termNum++;
- termID = term + termNum;
- }
- alert(termID + ": exist" + " Stoped!!!!");
-
- */
-
-
-//alert("ss");
-//alert(chrome.tabs.title);
-
-
+//alert("hhhhhhhh");
 
 
 //aaaaaaaaaaaaaaaaaa
@@ -51,22 +23,22 @@ chrome.runtime.onMessage.addListener(
         termNameArray = request.sendtermNameArray;
         for (var i = 0; i < termNameArray.length; i++) {
             document.getElementById("edu").options.add(new Option(termNameArray[i], i));
-            //alert("termNameArray[" + i + "] = " + termNameArray[i]);
+            //console.log("termNameArray[" + i + "] = " + termNameArray[i]);
         }
 
         termNumArray = request.sendtermNumArray;
         for (var i = 0; i < termNumArray.length; i++) {
-            //alert("termNumArray[" + i + "] = " + termNumArray[i]);
+            //console.log("termNumArray[" + i + "] = " + termNumArray[i]);
         }
 
         classNameArray = request.sendclassNameArray;
         for (var i = 0; i < classNameArray.length; i++) {
-            //alert("classNameArray[" + i + "] = " + classNameArray[i]);
+            //console.log("classNameArray[" + i + "] = " + classNameArray[i]);
         }
 
         classTimeArray = request.sendclassTimeArray;
         for (var i = 0; i < classTimeArray.length; i++) {
-            //alert("classTimeArray[" + i + "] = " + classTimeArray[i]);
+            //console.log("classTimeArray[" + i + "] = " + classTimeArray[i]);
         }
     });
 

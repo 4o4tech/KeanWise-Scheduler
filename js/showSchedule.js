@@ -23,21 +23,9 @@ function drawSchedule() {
             }
         }
 
-
-
-        //context.fillStyle = "#EEEEFF";
-        //context.fillRect(0, 0, 200, 200);
-        //绘制一个红色的长方形
-        //context.fillStyle = "#ff0000";
-        //context.fillRect(10, 10, 50, 50);
-        //绘制一个半透明的蓝色长方形
-        //context.fillStyle = "rgba(0, 0, 255, 0.5)";
-        //context.fillRect(document.getElementById("1,1").offsetLeft, document.getElementById("1,1").offsetTop, document.getElementById("1,1").offsetWidth, document.getElementById("1,1").offsetHeight);
-        //alert("left: " + document.getElementById("1,1").offsetLeft + "  Top: " + document.getElementById("1,1").offsetTop + "   Width: " + document.getElementById("1,1").offsetWidth + "    Height: " + document.getElementById("1,1").offsetHeight);
-
-
         //alert("drawSchedule!");
 
+        //clear the data
         var left = [];
         var top = [];
         var width = [];
@@ -112,10 +100,7 @@ function drawSchedule() {
 
                     //use day to get left & width
                     for (var d = 0; d < day.length; d++) {
-
                         //alert(day[d]);
-                        //alert(day[d] == "Monday");
-
                         switch (day[d]) {
                             case "Monday":
                                 left[d] = parseInt(document.getElementById("1,1").offsetLeft);
@@ -184,32 +169,25 @@ function drawSchedule() {
                     }//finish getting top
 
 
-
-
                     //use h1:m1 ~ h2:m2 to get height
                     for (var t = 0; t < day.length; t++) {
                         height[t] = (((h2 * 60) + m2) - ((h1 * 60) + m1)) / 60 * document.getElementById((h1 + offset).toString() + ",1").offsetHeight;
                         //alert(height[t]);
 
-                    }
+                    }//finish getting height
+
 
                     //alert("draw!");
-
                     draw(left, top, width, height);
 
 
-
-
+                    //show the course names
                     for (var n=0; n<nameLeft.length; n++){
                         ID = nameTop[n] + "," + nameLeft[n];
                         document.getElementById(ID).innerHTML = classNameArray[i + preTermNumSum].split("*")[0] + "<br/>" + classNameArray[i + preTermNumSum].split("*")[1];
                     }
 
-
-
-
-
-                    //day.lengthalert("left: " + left[0] + ", " + left[1] + "   top: " + top[0] + ", " + top[1]+ width[0] + ", " + width[1]+ height[0] + ", " + height[1]);
+                    // alert("left: " + left[0] + ", " + left[1] + "   top: " + top[0] + ", " + top[1]+ width[0] + ", " + width[1]+ height[0] + ", " + height[1]);
 
 
                     //clear the data
@@ -228,6 +206,7 @@ function drawSchedule() {
                     nameTop = [];
                     nameLeft = [];
 
+                    //change a color
                     tempColor++;
 
                     if (tempColor == 10) {
@@ -253,6 +232,7 @@ function drawSchedule() {
 var patternNum = /^[0-9]*[1-9][0-9]*$/; //number
 var patternCharacter = /^[A-Za-z]+$/; //character
 
+//function for checking if it is a number
 function isNumber(str) {
     if (patternNum.test(str)) {
         return true;
@@ -262,6 +242,7 @@ function isNumber(str) {
     }
 }
 
+//function for checking if it is a character
 function isCharacter(str) {
     if (patternCharacter.test(str)) {
         return true;
@@ -271,6 +252,7 @@ function isCharacter(str) {
     }
 }
 
+//function for drawing the color blocks
 function draw(left, top, width, height) {
     for (var i = 0; i < left.length; i++) {
         context.fillStyle = color[tempColor];
